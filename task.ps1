@@ -25,7 +25,7 @@ foreach ($disk in $unattachedDisks) {
    $jsonResult = @($result) | ConvertTo-Json -Depth 4
 
 # Save the JSON result to result.json
-$jsonResult | Out-File -FilePath "result.json" -Encoding utf8
+   $jsonResult | Out-File -FilePath (Join-Path $PSScriptRoot 'result.json') -Encoding utf8
 
 # Output the result to console (optional)
 Write-Output "Unattached disks saved to result.json"
