@@ -7,7 +7,7 @@ $resourceGroupName = "mate-azure-task-5"
 $disks = Get-AzDisk -ResourceGroupName $resourceGroupName
 
 # Filter for unattached disks
-$unattachedDisks = $disks | Where-Object { $_.ManagedBy -eq $null }
+   $unattachedDisks = $disks | Where-Object { ($_.ManagedBy -eq $null) -or ($_.DiskState -eq 'Unattached') }
 
 # Prepare the result object
 $result = @()
@@ -22,7 +22,7 @@ foreach ($disk in $unattachedDisks) {
 }
 
 # Convert the result to JSON format
-$jsonResult = $result | ConvertTo-Json -Depth 4
+   $jsonResult = @($result) | ConvertTo-Json -Depth 4
 
 # Save the JSON result to result.json
 $jsonResult | Out-File -FilePath "result.json" -Encoding utf8
